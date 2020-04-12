@@ -1140,7 +1140,6 @@ func typeFields(t reflect.Type) structFields {
 				if tag == "-" {
 					continue
 				}
-				//extag := sf.Tag.Get("extjson")
 				name, opts := parseTag(tag)
 				if !isValidTag(name) {
 					name = ""

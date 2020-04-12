@@ -934,7 +934,6 @@ func (d *decodeState) literalStore(item []byte, v reflect.Value, fromQuoted bool
 	isNull := item[0] == 'n' // null
 	u, ut, pv := indirect(v, isNull)
 	if u != nil {
-		fmt.Println("这里跪的")
 		return u.UnmarshalJSON(item)
 	}
 	if ut != nil {
