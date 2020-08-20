@@ -50,8 +50,15 @@ func underScoreCase(field string) string {
 }
 
 var timeType = reflect.TypeOf(time.Time{})
+var timePtrType = reflect.TypeOf((*time.Time)(nil))
 
 func timeTo(value reflect.Value, format string) string {
+	if !value.IsValid() {
+		return ""
+	}
+	for value.Kind() == reflect.Ptr {
+		value = value.Elem()
+	}
 	ti := value.Interface()
 	timeValue, ok := ti.(time.Time)
 	if !ok {
@@ -105,5 +112,9 @@ func toTime(value string, format string) (t time.Time, e error) {
 	}
 
 	t, e = time.Parse(format, value)
+	return
+}
+
+func toPtrTime(value string, format string) (t time.Time, e error) {
 	return
 }

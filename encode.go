@@ -392,17 +392,17 @@ var (
 // newTypeEncoder constructs an encoderFunc for a type.
 // The returned encoder only checks CanAddr when allowAddr is true.
 func newTypeEncoder(t reflect.Type, allowAddr bool) encoderFunc {
-	if t.Implements(marshalerType) && t != timeType {
+	if t.Implements(marshalerType) && t != timeType && t != timePtrType {
 		return marshalerEncoder
 	}
-	if t.Kind() != reflect.Ptr && allowAddr && reflect.PtrTo(t).Implements(marshalerType) && t != timeType {
+	if t.Kind() != reflect.Ptr && allowAddr && reflect.PtrTo(t).Implements(marshalerType) && t != timeType && t != timePtrType {
 		return newCondAddrEncoder(addrMarshalerEncoder, newTypeEncoder(t, false))
 	}
 
-	if t.Implements(textMarshalerType) && t != timeType {
+	if t.Implements(textMarshalerType) && t != timeType && t != timePtrType {
 		return textMarshalerEncoder
 	}
-	if t.Kind() != reflect.Ptr && allowAddr && reflect.PtrTo(t).Implements(textMarshalerType) && t != timeType {
+	if t.Kind() != reflect.Ptr && allowAddr && reflect.PtrTo(t).Implements(textMarshalerType) && t != timeType && t != timePtrType {
 		return newCondAddrEncoder(addrTextMarshalerEncoder, newTypeEncoder(t, false))
 	}
 
@@ -633,7 +633,7 @@ type structFields struct {
 }
 
 func (se structEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
-	if v.Type().AssignableTo(timeType) {
+	if v.Type().AssignableTo(timeType) || v.Type().AssignableTo(timePtrType) {
 		e.WriteString(`"`)
 		e.WriteString(timeTo(v, opts.timeFormat))
 		e.WriteString(`"`)
@@ -660,7 +660,7 @@ FieldLoop:
 			continue
 		}
 		opts.timeFormat = ""
-		if f.typ.AssignableTo(timeType) {
+		if f.typ.AssignableTo(timeType) || v.Type().AssignableTo(timePtrType) {
 			opts.timeFormat = f.timeFormat
 		}
 		e.WriteByte(next)

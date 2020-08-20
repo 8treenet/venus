@@ -925,6 +925,14 @@ func (d *decodeState) literalStore(item []byte, v reflect.Value, fromQuoted bool
 		v.Set(reflect.ValueOf(t))
 		return nil
 	}
+	if v.Type() == timePtrType {
+		t, e := toTime(string(item), timeFormat)
+		if e != nil {
+			return e
+		}
+		v.Set(reflect.ValueOf(&t))
+		return nil
+	}
 	// Check for unmarshaler.
 	if len(item) == 0 {
 		//Empty string given
