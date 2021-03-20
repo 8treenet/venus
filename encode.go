@@ -423,7 +423,7 @@ func newTypeEncoder(t reflect.Type, allowAddr bool) encoderFunc {
 		return newCondAddrEncoder(addrMarshalerEncoder, newTypeEncoder(t, false))
 	}
 
-	if t.Implements(marshalerType) && t != timeType {
+	if t.Implements(marshalerType) && t != timeType && t != timePtrType {
 		return marshalerEncoder
 	}
 	if t.Kind() != reflect.Ptr && allowAddr && reflect.PtrTo(t).Implements(textMarshalerType) && t != timeType && t != timePtrType {
