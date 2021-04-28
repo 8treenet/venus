@@ -1,13 +1,3 @@
-// Copyright 2010 The Go Authors. All rights reserved.
-// Use of this source code is governed by a BSD-style
-// license that can be found in the LICENSE file.
-
-// package extjson implements encoding and decoding of JSON as defined in
-// RFC 7159. The mapping between JSON and Go values is described
-// in the documentation for the Marshal and Unmarshal functions.
-//
-// See "JSON and Go" for an introduction to this package:
-// https://golang.org/doc/articles/json_and_go.html
 package extjson
 
 import (
@@ -237,6 +227,7 @@ func (e *UnsupportedTypeError) Error() string {
 	return "json: unsupported type: " + e.Type.String()
 }
 
+// UnsupportedValueError .
 type UnsupportedValueError struct {
 	Value reflect.Value
 	Str   string
@@ -246,12 +237,7 @@ func (e *UnsupportedValueError) Error() string {
 	return "json: unsupported value: " + e.Str
 }
 
-// Before Go 1.2, an InvalidUTF8Error was returned by Marshal when
-// attempting to encode a string value with invalid UTF-8 sequences.
-// As of Go 1.2, Marshal instead coerces the string to valid UTF-8 by
-// replacing invalid bytes with the Unicode replacement rune U+FFFD.
-//
-// Deprecated: No longer used; kept for compatibility.
+// InvalidUTF8Error .
 type InvalidUTF8Error struct {
 	S string // the whole string value that caused the error
 }
@@ -779,7 +765,7 @@ FieldLoop:
 	}
 }
 
-func newStructEncoder(t reflect.Type, exEntity ...*ExtJSONEntity) encoderFunc {
+func newStructEncoder(t reflect.Type, exEntity ...*ExtJSON) encoderFunc {
 	se := structEncoder{fields: cachedTypeFields(t)}
 	return se.encode
 }
@@ -817,7 +803,7 @@ func (me mapEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 	e.WriteByte('}')
 }
 
-func newMapEncoder(t reflect.Type, exEntity ...*ExtJSONEntity) encoderFunc {
+func newMapEncoder(t reflect.Type, exEntity ...*ExtJSON) encoderFunc {
 	switch t.Key().Kind() {
 	case reflect.String,
 		reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64,
@@ -878,7 +864,7 @@ func (se sliceEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 	se.arrayEnc(e, v, opts)
 }
 
-func newSliceEncoder(t reflect.Type, exEntity ...*ExtJSONEntity) encoderFunc {
+func newSliceEncoder(t reflect.Type, exEntity ...*ExtJSON) encoderFunc {
 	// Byte slices get special treatment; arrays don't.
 	if t.Elem().Kind() == reflect.Uint8 {
 		p := reflect.PtrTo(t.Elem())
@@ -906,7 +892,7 @@ func (ae arrayEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 	e.WriteByte(']')
 }
 
-func newArrayEncoder(t reflect.Type, exEntity ...*ExtJSONEntity) encoderFunc {
+func newArrayEncoder(t reflect.Type, exEntity ...*ExtJSON) encoderFunc {
 	enc := arrayEncoder{typeEncoder(t.Elem())}
 	return enc.encode
 }
@@ -938,7 +924,7 @@ func (pe ptrEncoder) encode(e *encodeState, v reflect.Value, opts encOpts) {
 	e.ptrLevel--
 }
 
-func newPtrEncoder(t reflect.Type, exEntity ...*ExtJSONEntity) encoderFunc {
+func newPtrEncoder(t reflect.Type, exEntity ...*ExtJSON) encoderFunc {
 	enc := ptrEncoder{typeEncoder(t.Elem())}
 	return enc.encode
 }

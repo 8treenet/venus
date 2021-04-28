@@ -8,7 +8,7 @@ import (
 	"strconv"
 )
 
-//NewMap
+// NewMap .
 func NewMap(dst interface{}) error {
 	dscValue := reflect.ValueOf(dst)
 	if dscValue.Elem().Kind() != reflect.Map {
@@ -19,7 +19,7 @@ func NewMap(dst interface{}) error {
 	return nil
 }
 
-//InSlice
+// InSlice .
 func InSlice(array interface{}, item interface{}) bool {
 	values := reflect.ValueOf(array)
 	if values.Kind() != reflect.Slice {
@@ -41,7 +41,7 @@ func InSlice(array interface{}, item interface{}) bool {
 	return false
 }
 
-//NewSlice 创建数组
+// NewSlice 创建数组
 func NewSlice(dsc interface{}, len int) error {
 	dstv := reflect.ValueOf(dsc)
 	if dstv.Elem().Kind() != reflect.Slice {
@@ -76,14 +76,19 @@ type refectItem []struct {
 	x    int
 }
 
-func (this refectItem) Len() int {
-	return len(this)
+// Len .
+func (ri refectItem) Len() int {
+	return len(ri)
 }
-func (this refectItem) Swap(i, j int) {
-	this[i], this[j] = this[j], this[i]
+
+// Swap .
+func (ri refectItem) Swap(i, j int) {
+	ri[i], ri[j] = ri[j], ri[i]
 }
-func (this refectItem) Less(i, j int) bool {
-	return this[j].x < this[i].x
+
+// Less .
+func (ri refectItem) Less(i, j int) bool {
+	return ri[j].x < ri[i].x
 }
 
 //SliceSort 降序

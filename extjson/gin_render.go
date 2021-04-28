@@ -6,18 +6,20 @@ import (
 	"text/template"
 )
 
+// GinJSON .
 type GinJSON struct {
 	Callback string
 	Data     interface{}
 }
 
+// GinRender .
 func GinRender(data interface{}, callback string) GinJSON {
 	return GinJSON{Data: data, Callback: callback}
 }
 
 var jsonContentType = []string{"application/json; charset=utf-8"}
 var jsonpContentType = []string{"application/javascript; charset=utf-8"}
-var jsonAsciiContentType = []string{"application/json"}
+var jsonASCIIContentType = []string{"application/json"}
 
 // Render (JSON) writes data with custom ContentType.
 func (r GinJSON) Render(w http.ResponseWriter) (err error) {

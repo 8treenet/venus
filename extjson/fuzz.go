@@ -10,6 +10,7 @@ import (
 	"fmt"
 )
 
+// Fuzz .
 func Fuzz(data []byte) (score int) {
 	for _, ctor := range []func() interface{}{
 		func() interface{} { return new(interface{}) },
