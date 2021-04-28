@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func namedStyleCaseFormat(field string, exEntity *ExtJSONEntity) string {
+func namedStyleCaseFormat(field string, exEntity *ExtJSON) string {
 	switch exEntity.option.NamedStyle {
 	case NamedStyleUnderScoreCase:
 		return underScoreCase(field)

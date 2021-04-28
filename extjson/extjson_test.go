@@ -15,7 +15,7 @@ type Style struct {
 }
 
 func TestLowerCamelCase(t *testing.T) {
-	extjson.SetDefaultOption(extjson.ExtJSONEntityOption{NamedStyle: extjson.NamedStyleLowerCamelCase})
+	extjson.SetDefaultOption(extjson.ExtOption{NamedStyle: extjson.NamedStyleLowerCamelCase})
 	styleBytes, _ := extjson.Marshal(Style{StyleText: "extjson", StyleNumber: 100, StyleBoolean: true, StyleTag: "Tag"})
 	t.Log(string(styleBytes))
 	//out: {"styleText":"extjson","styleNumber":100,"styleBoolean":true,"tagtagtag":"Tag"}
@@ -27,7 +27,7 @@ func TestLowerCamelCase(t *testing.T) {
 }
 
 func TestUnderScoreCase(t *testing.T) {
-	extjson.SetDefaultOption(extjson.ExtJSONEntityOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
+	extjson.SetDefaultOption(extjson.ExtOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
 	styleBytes, _ := extjson.Marshal(Style{StyleText: "extjson", StyleNumber: 100, StyleBoolean: true, StyleTag: "Tag"})
 	t.Log(string(styleBytes))
 	//out: {"style_text":"extjson","style_number":100,"style_boolean":true,"tagtagtag":"Tag"}
@@ -39,7 +39,7 @@ func TestUnderScoreCase(t *testing.T) {
 }
 
 func TestNull(t *testing.T) {
-	extjson.SetDefaultOption(extjson.ExtJSONEntityOption{
+	extjson.SetDefaultOption(extjson.ExtOption{
 		NamedStyle:       extjson.NamedStyleLowerCamelCase,
 		SliceNotNull:     true,
 		StructPtrNotNull: true,

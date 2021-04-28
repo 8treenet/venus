@@ -9,7 +9,7 @@
 
 ## 安装
 ```go
-$ go get github.com/8treenet/extjson
+$ go get github.com/8treenet/venus
 ```
 
 
@@ -31,7 +31,7 @@ type Style struct {
 
 func TestLowerCamelCase(t *testing.T) {
     //设置配置 NamedStyle: extjson.NamedStyleLowerCamelCase 小写驼峰风格
-    extjson.SetDefaultOption(extjson.ExtJSONEntityOption{NamedStyle: extjson.NamedStyleLowerCamelCase})
+    extjson.SetDefaultOption(extjson.ExtOption{NamedStyle: extjson.NamedStyleLowerCamelCase})
 
     //extjson.Marshal 序列化
     styleBytes, _ := extjson.Marshal(Style{StyleText: "extjson", StyleNumber: 100, StyleBoolean: true, StyleTag: "Tag"})
@@ -56,7 +56,7 @@ import (
 
 func TestUnderScoreCase(t *testing.T) {
     //extjson.NamedStyleUnderScoreCase : 下划线风格
-    extjson.SetDefaultOption(extjson.ExtJSONEntityOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
+    extjson.SetDefaultOption(extjson.ExtOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
     styleBytes, _ := extjson.Marshal(Style{StyleText: "extjson", StyleNumber: 100, StyleBoolean: true, StyleTag: "Tag"})
     fmt.Println(string(styleBytes))
     //输出: {"style_text":"extjson","style_number":100,"style_boolean":true,"tagtagtag":"Tag"}
@@ -78,7 +78,7 @@ import (
 )
 
 func TestNull(t *testing.T) {
-    extjson.SetDefaultOption(extjson.ExtJSONEntityOption{
+    extjson.SetDefaultOption(extjson.ExtOption{
         NamedStyle:       extjson.NamedStyleLowerCamelCase, //小写驼峰
         SliceNotNull:     true, //空数组不返回null, 返回[]
         StructPtrNotNull: true, //nil结构体指针不返回null, 返回{}
@@ -140,7 +140,7 @@ import (
     "net/http"
 )
 func init() {
-    extjson.SetDefaultOption(extjson.ExtJSONEntityOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
+    extjson.SetDefaultOption(extjson.ExtOption{NamedStyle: extjson.NamedStyleUnderScoreCase})
 }
 
 func handle(c *gin.Context) {

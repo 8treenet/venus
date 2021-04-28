@@ -213,7 +213,7 @@ type decodeState struct {
 	savedError            error
 	useNumber             bool
 	disallowUnknownFields bool
-	exEntity              *ExtJSONEntity
+	exEntity              *ExtJSON
 	timeFormat            string
 }
 

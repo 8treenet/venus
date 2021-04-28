@@ -1,18 +1,18 @@
 package extjson
 
 // SetDefaultOption .
-func SetDefaultOption(entityOption ExtEntityOption) {
+func SetDefaultOption(entityOption ExtOption) {
 	defEntity = &ExtJSON{option: entityOption}
 }
 
-// ExtEntityOption .
-type ExtEntityOption struct {
+// ExtOption .
+type ExtOption struct {
 	NamedStyle       int
 	SliceNotNull     bool
 	StructPtrNotNull bool
 }
 
-func (exOption *ExtEntityOption) checkInvalid() {
+func (exOption *ExtOption) checkInvalid() {
 	if exOption.NamedStyle == 0 {
 		exOption.NamedStyle = NamedStyleUpperCamelCase
 	}
@@ -20,11 +20,11 @@ func (exOption *ExtEntityOption) checkInvalid() {
 
 // ExtJSON .
 type ExtJSON struct {
-	option ExtEntityOption
+	option ExtOption
 }
 
 var defEntity *ExtJSON
 
 func init() {
-	SetDefaultOption(ExtEntityOption{})
+	SetDefaultOption(ExtOption{})
 }

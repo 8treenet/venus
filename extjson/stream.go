@@ -188,7 +188,7 @@ type Encoder struct {
 	indentBuf    *bytes.Buffer
 	indentPrefix string
 	indentValue  string
-	ex           *ExtJSONEntity
+	ex           *ExtJSON
 }
 
 // NewEncoder returns a new encoder that writes to w.
