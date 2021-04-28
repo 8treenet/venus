@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/8treenet/extjson"
+	"github.com/8treenet/venus/extjson"
 )
 
 type Style struct {
