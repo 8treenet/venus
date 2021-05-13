@@ -25,11 +25,16 @@ func TestNormal(t *testing.T) {
 }
 
 func TestSearch(t *testing.T) {
-	//创建一致性哈希和范围1-100的节点
+	//方式1 创建一致性哈希和范围1-100的节点
 	hash := dht.New().Range(1, 100)
-
 	//输入数据 查找节点
 	node := hash.Search("freedom")
+	t.Log(node.Value(), node.CRC32())
+
+	//方式2 创建一致性哈希和列表节点
+	hash = dht.New().List("hostname1", "hostname2", "hostname3")
+	//输入数据 查找节点
+	node = hash.Search("group-1001")
 	t.Log(node.Value(), node.CRC32())
 }
 
