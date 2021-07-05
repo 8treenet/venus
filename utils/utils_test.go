@@ -4,18 +4,22 @@ import "testing"
 
 func TestSliceUp(t *testing.T) {
 	var numberList []int
-	for i := 0; i < 300; i++ {
+	for i := 0; i < 50; i++ {
 		numberList = append(numberList, i)
 	}
 
 	var numbeResult [][]int
-	SliceUp(numberList, &numbeResult, 55) //把numberList以55长度切割成二维数组
-	t.Log(len(numbeResult))
+	SliceUp(numberList, &numbeResult, 13) //把numberList以13长度切割成二维数组
+	for _, subNumberList := range numbeResult {
+		t.Log("subNumberList", subNumberList)
+	}
 
 	strList := []string{"a", "b", "c", "d", "e", "f", "g", "h", "fuck"}
 	var strResult [][]string
-	e := SliceUp(strList, &strResult, 2) //把strList以2长度切割成二维数组
-	t.Log(strResult, e)
+	SliceUp(strList, &strResult, 2) //把strList以2长度切割成二维数组
+	for _, v := range strResult {
+		t.Log("subStrList", v)
+	}
 }
 
 func TestInSlice(t *testing.T) {
