@@ -72,4 +72,4 @@ func press() {
 
 ```
 
-<img src="https://github.com/8treenet/venus/blob/master/quick-gin/example/client/client.jpg">
+<img src="https://gitee.com/treenet/wakedata/raw/master/client.jpg">
